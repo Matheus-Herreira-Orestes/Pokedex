@@ -9,6 +9,8 @@ const buttonNext = document.querySelector('.btn-next');
 let searchPokemon = 1;
 
 
+
+
 const fetchPokemon = async (pokemon) =>{
 
     const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
@@ -72,6 +74,57 @@ buttonNext.addEventListener('click',() =>{
     renderPokemon(searchPokemon);
 });
 
+/*document.addEventListener('keydown',(event) => {
+    if (event.key == 'ArrowRight') {
+        searchPokemon += 1;
+        renderPokemon(searchPokemon);
+        document.querySelector('.btn-next').classList.add('active');
+    } if (event.key == 'ArrowLeft'){
+        searchPokemon -=1;
+        renderPokemon(searchPokemon);
+    }
+});*/
+
+document.addEventListener('keydown',(event)=>{
+    var theKey = event.key;
+
+
+    const addPrev = () => {
+
+        if (theKey == 'ArrowLeft') {
+        buttonPrev.classList.add('active');
+        
+        setTimeout(() => {
+            buttonPrev.classList.remove('active');
+        },500);
+        }
+
+        if (searchPokemon >1) {
+            searchPokemon -=1;
+            renderPokemon(searchPokemon);
+            }
+    }
+    
+    const addNext = () => {
+        if (theKey == 'ArrowRight'){
+        buttonNext.classList.add('active');
+        
+        setTimeout(() => {
+            buttonNext.classList.remove('active');
+        },500);
+        }
+
+        searchPokemon += 1;
+    renderPokemon(searchPokemon);
+
+    }
+
+    if (theKey == 'ArrowLeft'){
+        addPrev();
+    } if (theKey == 'ArrowRight'){
+        addNext();
+    }
+});
 
 
 
