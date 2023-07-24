@@ -5,11 +5,10 @@ const form = document.querySelector('.form');
 const input = document.querySelector('.input_search');
 const buttonPrev = document.querySelector('.btn-prev');
 const buttonNext = document.querySelector('.btn-next');
+const type1 = document.querySelector('.type1');
+const type2 = document.querySelector('.type2');
 
 let searchPokemon = 1;
-
-
-
 
 const fetchPokemon = async (pokemon) =>{
 
@@ -33,11 +32,14 @@ const renderPokemon = async (pokemon) => {
 
     if (data) {
 
+    type1.innerHTML ="";
+    type2.innerHTML = "???"
+
     pokemonImage.style.display = 'block';
     pokemonNumber.innerHTML = data.id;
     pokemonName.innerHTML = data.name;
     searchPokemon = data.id;
-
+    
     if (searchPokemon > 649){
         pokemonImage.src = data['sprites']['other']['home']['front_default'];
     }else{
@@ -52,6 +54,15 @@ const renderPokemon = async (pokemon) => {
         pokemonNumber.innerHTML = '';
     }
 
+    type1.innerHTML = data['types']['0']['type']['name'];
+
+    if(type2.innerHTML = data['types']['1']['type']['name'] == null){
+        type2 = ""
+    
+    }else{
+
+    type2.innerHTML = data['types']['1']['type']['name'];
+    }
 }
 
 form.addEventListener('submit', (event) =>{
@@ -74,21 +85,8 @@ buttonNext.addEventListener('click',() =>{
     renderPokemon(searchPokemon);
 });
 
-/*document.addEventListener('keydown',(event) => {
-    if (event.key == 'ArrowRight') {
-        searchPokemon += 1;
-        renderPokemon(searchPokemon);
-        document.querySelector('.btn-next').classList.add('active');
-    } if (event.key == 'ArrowLeft'){
-        searchPokemon -=1;
-        renderPokemon(searchPokemon);
-    }
-});*/
-
 document.addEventListener('keydown',(event)=>{
     var theKey = event.key;
-
-
     const addPrev = () => {
 
         if (theKey == 'ArrowLeft') {
@@ -96,7 +94,7 @@ document.addEventListener('keydown',(event)=>{
         
         setTimeout(() => {
             buttonPrev.classList.remove('active');
-        },500);
+        },100);
         }
 
         if (searchPokemon >1) {
@@ -111,7 +109,7 @@ document.addEventListener('keydown',(event)=>{
         
         setTimeout(() => {
             buttonNext.classList.remove('active');
-        },500);
+        },100);
         }
 
         searchPokemon += 1;
@@ -125,7 +123,5 @@ document.addEventListener('keydown',(event)=>{
         addNext();
     }
 });
-
-
 
 renderPokemon(searchPokemon);
