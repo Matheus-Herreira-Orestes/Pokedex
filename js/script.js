@@ -32,20 +32,20 @@ const renderPokemon = async (pokemon) => {
 
     if (data) {
 
-    type1.innerHTML ="";
-    type2.innerHTML = "???"
+        type1.innerHTML ="";
+        type2.innerHTML = "???"
 
-    pokemonImage.style.display = 'block';
-    pokemonNumber.innerHTML = data.id;
-    pokemonName.innerHTML = data.name;
-    searchPokemon = data.id;
+        pokemonImage.style.display = 'block';
+        pokemonNumber.innerHTML = data.id;
+        pokemonName.innerHTML = data.name;
+        searchPokemon = data.id;
     
-    if (searchPokemon > 649){
-        pokemonImage.src = data['sprites']['other']['home']['front_default'];
-    }else{
-        pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
-    }   
-    input.value = '';
+        if (searchPokemon > 649){
+            pokemonImage.src = data['sprites']['other']['home']['front_default'];
+        }else{
+            pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
+        }   
+        input.value = '';
     
     
     } else {
@@ -60,41 +60,40 @@ const renderPokemon = async (pokemon) => {
         type2 = ""
     
     }else{
-
-    type2.innerHTML = data['types']['1']['type']['name'];
+        type2.innerHTML = data['types']['1']['type']['name'];
     }
 }
 
-form.addEventListener('submit', (event) =>{
+    form.addEventListener('submit', (event) =>{
 
-    event.preventDefault();
+        event.preventDefault();
 
-    renderPokemon(input.value.toLowerCase());
+        renderPokemon(input.value.toLowerCase());
    
-});
+    });
 
-buttonPrev.addEventListener('click', () =>{
-    if (searchPokemon >1) {
-    searchPokemon -=1;
-    renderPokemon(searchPokemon);
-    }
-});
+    buttonPrev.addEventListener('click', () =>{
+        if (searchPokemon >1) {
+        searchPokemon -=1;
+        renderPokemon(searchPokemon);
+        }
+    });
 
-buttonNext.addEventListener('click',() =>{
-    searchPokemon += 1;
-    renderPokemon(searchPokemon);
-});
+    buttonNext.addEventListener('click',() =>{
+        searchPokemon += 1;
+        renderPokemon(searchPokemon);
+    });
 
-document.addEventListener('keydown',(event)=>{
-    var theKey = event.key;
-    const addPrev = () => {
+    document.addEventListener('keydown',(event)=>{
+        var theKey = event.key;
+        const addPrev = () => {
 
         if (theKey == 'ArrowLeft') {
-        buttonPrev.classList.add('active');
+            buttonPrev.classList.add('active');
         
-        setTimeout(() => {
-            buttonPrev.classList.remove('active');
-        },100);
+            setTimeout(() => {
+                buttonPrev.classList.remove('active');
+            },100);
         }
 
         if (searchPokemon >1) {
@@ -105,17 +104,16 @@ document.addEventListener('keydown',(event)=>{
     
     const addNext = () => {
         if (theKey == 'ArrowRight'){
-        buttonNext.classList.add('active');
+            buttonNext.classList.add('active');
         
-        setTimeout(() => {
-            buttonNext.classList.remove('active');
-        },100);
+            setTimeout(() => {
+                buttonNext.classList.remove('active');
+            },100);
         }
-
         searchPokemon += 1;
-    renderPokemon(searchPokemon);
-
+        renderPokemon(searchPokemon);
     }
+
 
     if (theKey == 'ArrowLeft'){
         addPrev();
